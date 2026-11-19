@@ -1,5 +1,9 @@
 <div align="center">
 
+<img src="banner.jpg" alt="SonicBridge - Sound-based Data Transfer" width="100%" />
+
+<br/>
+
 # 🔊 SonicBridge
 
 ### Sound-based Data Transfer — offline, air-gapped, no pairing required
