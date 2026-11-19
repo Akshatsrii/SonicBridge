@@ -53,6 +53,8 @@
 
 ## 🌐 Overview
 
+> 🌐 **Live Demo:** Try it directly in your browser: [**https://sonicbridge-mu.vercel.app/**](https://sonicbridge-mu.vercel.app/)
+
 **SonicBridge** is an offline, air-gapped **acoustic data transmission** tool. It sends **text and small files** through sound waves using a custom multi-tone FSK modem written in TypeScript and running entirely in the browser.
 
 Because the channel is just air, it works where nothing else does: isolated machines, locked-down networks, devices that can't pair, or any situation where you want to move a small piece of data without touching a network.
@@ -430,6 +432,10 @@ The hello is deliberately **unauthenticated**: a tag keyed by the passphrase wou
 ---
 
 ## 🚀 Getting Started
+
+> ⚡ **Quick Start (No Installation Needed):**  
+> You can try SonicBridge immediately in your browser on any phone or laptop:  
+> 👉 **[https://sonicbridge-mu.vercel.app/](https://sonicbridge-mu.vercel.app/)**
 
 ### Prerequisites
 - **Node.js 22.18 or newer** (the build works on older versions, but the tests run the TypeScript sources directly)
