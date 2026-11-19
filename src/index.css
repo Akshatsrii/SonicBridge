@@ -8,21 +8,29 @@
 }
 
 :root {
-  --bg: #0a0c10;
-  --fg: #c9d1d9;
-  /* Secondary text: ~6.4:1 on --bg, ~5.7:1 on --sel (WCAG AA). */
-  --dim: #8b949e;
-  /* Decorative rules and box lines only, never text. */
-  --line: #2a3140;
-  --sel: #141b26;
-  --accent: #ff2b6d;
-  --rx: #29d8ff;
-  --tx: #3ddc84;
-  --warn: #ffb000;
-  --err: #ff4d5e;
+  /* Deep OLED black / dark cyber console */
+  --bg: #05080c;
+  /* Pale cyan-white high-contrast text */
+  --fg: #d6eef2;
+  /* Muted cyan-slate secondary text */
+  --dim: #4e7f8e;
+  /* Neon cyan wireframe line */
+  --line: #123d4a;
+  /* Dark cyan surface selection */
+  --sel: #081720;
+  /* Luminous Tangerine Neon Orange */
+  --accent: #ff6022;
+  /* Electric Neon Cyan */
+  --rx: #00f0ff;
+  /* Glowing Neon Orange / Active TX */
+  --tx: #ff6022;
+  /* Amber / Gold */
+  --warn: #ffaa00;
+  /* Coral Red */
+  --err: #ff3366;
   --cell: 16px;
-  /* The spectrum's band tint: how strongly the selected band is shaded. */
-  --band-tint: 0.035;
+  /* Spectrum's band tint */
+  --band-tint: 0.06;
 
   color-scheme: dark;
   font-family: 'Unifont', ui-monospace, monospace;
@@ -37,25 +45,22 @@
 }
 
 /*
- * Light theme, for the app only (the explainer never sets data-theme).
- * Warm paper rather than white: the dark theme's neon accents become inks,
- * which read like a printed terminal log and glare less than on pure white.
- * Every text colour is at least 5.2:1 on both --bg and --sel (WCAG AA).
+ * Light theme keeps same high-contrast cyber palette structure
  */
 :root[data-theme='light'] {
-  --bg: #f4f1e8;
-  --fg: #23262d;
-  --dim: #565c66;
-  --line: #d6cfbd;
-  --sel: #e9e4d6;
-  --accent: #b3114b;
-  --rx: #00627d;
-  --tx: #146a34;
-  --warn: #7c5100;
-  --err: #b3212b;
-  --band-tint: 0.07;
+  --bg: #070c12;
+  --fg: #e0f4f7;
+  --dim: #5a8d9e;
+  --line: #164654;
+  --sel: #0b1e29;
+  --accent: #ff682b;
+  --rx: #00f0ff;
+  --tx: #ff682b;
+  --warn: #ffaa00;
+  --err: #ff3366;
+  --band-tint: 0.08;
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 * {

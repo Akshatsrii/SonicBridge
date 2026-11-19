@@ -23,8 +23,8 @@ const WATERFALL_TICK_MS = 90;
 const SHADES = [' ', '░', '▒', '▓', '█'];
 // Waterfall shades, faint to strong: towards white on the dark theme, towards ink on paper.
 const SHADE_COLORS = {
-  dark: { rx: ['', '#174456', '#1f7896', '#29d8ff', '#d8f6ff'], tx: ['', '#174a2b', '#21854a', '#3ddc84', '#d8ffe8'] },
-  light: { rx: ['', '#c6dadd', '#7cb0bd', '#237d95', '#00445a'], tx: ['', '#cddecb', '#83b690', '#2a814c', '#0b4721'] },
+  dark: { rx: ['', '#0b313d', '#12576b', '#00d2ff', '#b8f6ff'], tx: ['', '#381609', '#782d0e', '#ff6022', '#ffded1'] },
+  light: { rx: ['', '#0b313d', '#12576b', '#00d2ff', '#b8f6ff'], tx: ['', '#381609', '#782d0e', '#ff6022', '#ffded1'] },
 };
 
 const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -61,15 +61,15 @@ const Spectrum: React.FC<SpectrumProps> = ({ analyser, sampleRate, maxFrequency,
     let colorsFor: string | null = null;
 
     const colors = {
-      fg: '#c9d1d9',
-      dim: '#5c6773',
-      line: '#2a3140',
-      accent: '#ff2b6d',
-      rx: '#29d8ff',
-      tx: '#3ddc84',
-      warn: '#ffb000',
-      bg: '#0a0c10',
-      tint: 0.035,
+      fg: '#d6eef2',
+      dim: '#4e7f8e',
+      line: '#123d4a',
+      accent: '#ff6022',
+      rx: '#00f0ff',
+      tx: '#ff6022',
+      warn: '#ffaa00',
+      bg: '#05080c',
+      tint: 0.06,
     };
 
     const readColors = () => {

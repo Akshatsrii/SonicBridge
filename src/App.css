@@ -57,8 +57,10 @@
 
 .brand {
   background: var(--accent);
-  color: var(--bg);
+  color: #05080c;
   padding: 0 1ch;
+  border-radius: 3px;
+  font-weight: bold;
 }
 
 .topbar .state {
@@ -97,12 +99,14 @@
   position: relative;
   min-width: 0;
   border: 1px solid var(--line);
+  border-radius: 4px;
   padding: var(--cell) 1ch 8px;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .panel:focus-within {
-  border-color: var(--accent);
+  border-color: var(--rx);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
 }
 
 .panel-title {
@@ -440,11 +444,16 @@
 
 .btn-primary:not(:disabled) {
   background: var(--accent);
-  color: var(--bg);
+  color: #05080c;
+  font-weight: bold;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(255, 96, 34, 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--fg);
+  background: #ff7844;
+  color: #05080c;
+  box-shadow: 0 0 12px rgba(255, 96, 34, 0.5);
 }
 
 .key {
