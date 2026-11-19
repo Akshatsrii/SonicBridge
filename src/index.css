@@ -45,22 +45,22 @@
 }
 
 /*
- * Light theme keeps same high-contrast cyber palette structure
+ * Light theme: Clean pure white background with crisp typography
  */
 :root[data-theme='light'] {
-  --bg: #070c12;
-  --fg: #e0f4f7;
-  --dim: #5a8d9e;
-  --line: #164654;
-  --sel: #0b1e29;
-  --accent: #ff682b;
-  --rx: #00f0ff;
-  --tx: #ff682b;
-  --warn: #ffaa00;
-  --err: #ff3366;
+  --bg: #ffffff;
+  --fg: #111827;
+  --dim: #4b5563;
+  --line: #d1d5db;
+  --sel: #f3f4f6;
+  --accent: #ea580c;
+  --rx: #0284c7;
+  --tx: #ea580c;
+  --warn: #d97706;
+  --err: #dc2626;
   --band-tint: 0.08;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {

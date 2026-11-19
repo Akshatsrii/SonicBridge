@@ -24,7 +24,7 @@ const SHADES = [' ', '░', '▒', '▓', '█'];
 // Waterfall shades, faint to strong: towards white on the dark theme, towards ink on paper.
 const SHADE_COLORS = {
   dark: { rx: ['', '#0b313d', '#12576b', '#00d2ff', '#b8f6ff'], tx: ['', '#381609', '#782d0e', '#ff6022', '#ffded1'] },
-  light: { rx: ['', '#0b313d', '#12576b', '#00d2ff', '#b8f6ff'], tx: ['', '#381609', '#782d0e', '#ff6022', '#ffded1'] },
+  light: { rx: ['', '#bae6fd', '#38bdf8', '#0284c7', '#0369a1'], tx: ['', '#fed7aa', '#fb923c', '#ea580c', '#c2410c'] },
 };
 
 const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
