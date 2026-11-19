@@ -1,0 +1,110 @@
+/* Unifont is an 8×16 bitmap face; everything is laid out on that cell grid. */
+@font-face {
+  font-family: 'Unifont';
+  src: url('/unifont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #0a0c10;
+  --fg: #c9d1d9;
+  /* Secondary text: ~6.4:1 on --bg, ~5.7:1 on --sel (WCAG AA). */
+  --dim: #8b949e;
+  /* Decorative rules and box lines only, never text. */
+  --line: #2a3140;
+  --sel: #141b26;
+  --accent: #ff2b6d;
+  --rx: #29d8ff;
+  --tx: #3ddc84;
+  --warn: #ffb000;
+  --err: #ff4d5e;
+  --cell: 16px;
+  /* The spectrum's band tint: how strongly the selected band is shaded. */
+  --band-tint: 0.035;
+
+  color-scheme: dark;
+  font-family: 'Unifont', ui-monospace, monospace;
+  font-size: 16px;
+  line-height: var(--cell);
+  color: var(--fg);
+  background-color: var(--bg);
+  font-synthesis: none;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  text-rendering: optimizeSpeed;
+}
+
+/*
+ * Light theme, for the app only (the explainer never sets data-theme).
+ * Warm paper rather than white: the dark theme's neon accents become inks,
+ * which read like a printed terminal log and glare less than on pure white.
+ * Every text colour is at least 5.2:1 on both --bg and --sel (WCAG AA).
+ */
+:root[data-theme='light'] {
+  --bg: #f4f1e8;
+  --fg: #23262d;
+  --dim: #565c66;
+  --line: #d6cfbd;
+  --sel: #e9e4d6;
+  --accent: #b3114b;
+  --rx: #00627d;
+  --tx: #146a34;
+  --warn: #7c5100;
+  --err: #b3212b;
+  --band-tint: 0.07;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: var(--bg);
+}
+
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+  line-height: var(--cell);
+}
+
+a {
+  color: var(--rx);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SONICBRIDGE // AUDIO DATA TRANSMISSION</title>
+    <meta name="theme-color" content="#0a0c10" />
+    <link rel="preload" href="/unifont.woff" as="font" type="font/woff" crossorigin />
+    <script type="module">
+      // Handle GitHub Pages path issues
+      (function() {
+        const { pathname } = window.location;
+        // For custom domain, we just need to ensure the path ends with a slash
+        if (pathname !== '/' && !pathname.endsWith('/')) {
+          const hasQuery = window.location.search.length > 0;
+          window.history.replaceState(
+            {},
+            '',
+            `${pathname}/${hasQuery ? window.location.search : ''}`
+          );
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
