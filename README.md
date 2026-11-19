@@ -13,6 +13,12 @@
 
 <br/>
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-sonicbridge--mu.vercel.app-00f0ff?style=for-the-badge&logo=vercel&logoColor=black)](https://sonicbridge-mu.vercel.app/)
+<br/>
+🔗 **Live Website:** [https://sonicbridge-mu.vercel.app/](https://sonicbridge-mu.vercel.app/)
+
+<br/>
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
