@@ -553,14 +553,14 @@ The deploy workflow runs **lint and tests before building**. The simulator is **
 
 ## 👥 Team
 
-This project is a collaboration between:
+This project is a collaborative engineering project developed by:
 
-| Name | Role |
-|---|---|
-| **Akshat Srivastava** | Core contributor |
-| **Anuj Raj** | Core contributor |
-| **Sachin Kumar Jha** | Core contributor |
-| **Irfan Khan** | Core contributor |
+| S.No. | Name | C.R.N. | U.R.N. | Role |
+|:---:|---|:---:|:---:|---|
+| 1 | **Akshat Srivastava** | `23/495` | `23EUCIT304` | Core Contributor |
+| 2 | **Anuj Raj** | `23/507` | — | Core Contributor |
+| 3 | **Sachin Kumar Jha** | `23/111` | — | Core Contributor |
+| 4 | **Irfan Khan** | `23/536` | — | Core Contributor |
 
 ---
 
