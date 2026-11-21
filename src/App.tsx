@@ -30,6 +30,15 @@ import { FrameType, type DemodEvent, type Demodulator, type Frame, type Modem } 
 import { SessionManager, type SessionInfo, type SessionOpen } from './transfer/sessions';
 import { applyTheme, initialTheme, storeTheme, type Theme } from './theme';
 import { ECHO_SETTLE_MS, Transmitter, holdoffAfter, airtimeOf, type PrepareContext, type SendingState, type TxState } from './transfer/transmitter';
+import {
+  PlayerProfile,
+  getStoredPlayer,
+  storePlayer,
+  clearPlayer,
+  formatGamerMessage,
+  parseGamerMessage,
+} from './auth/playerSession';
+import GamerAuthModal from './components/GamerAuthModal';
 
 // Audio signal favicon SVG data - base64 encoded for direct use
 const AUDIO_FAVICON = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxMzEzMTMiLz4KICA8IS0tIFRocmVlIHNpZ25hbCBiYXJzIHdpdGggc29saWQgY29sb3JzIC0tPgogIDxyZWN0IHg9IjEyIiB5PSI0MiIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiByeD0iMiIgZmlsbD0iI2ZmNDFiNCIvPiA8IS0tIFBpbmsgLS0+CiAgPHJlY3QgeD0iMjciIHk9IjMwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjIiIHJ4PSIyIiBmaWxsPSIjMDBmZmFhIi8+IDwhLS0gR3JlZW4gLS0+CiAgPHJlY3QgeD0iNDIiIHk9IjE4IiB3aWR0aD0iMTAiIGhlaWdodD0iMzQiIHJ4PSIyIiBmaWxsPSIjMzE4NWZmIi8+IDwhLS0gQmx1ZSAtLT4KPC9zdmc+`;
@@ -314,6 +323,8 @@ function LogNote({ line, retryMic }: { line: LogLine; retryMic?: () => void }) {
 function LogRow({ line, retryMic }: { line: LogLine; retryMic?: () => void }) {
   const busy = line.progress !== undefined;
   const pct = Math.round((line.progress ?? 0) * 100);
+  const parsed = parseGamerMessage(line.text);
+
   return (
     <div className={`log-row tag-${line.tag}${busy ? ' busy' : ''}`}>
       <span className="log-time">{line.time}</span>
@@ -338,6 +349,13 @@ function LogRow({ line, retryMic }: { line: LogLine; retryMic?: () => void }) {
               {line.file.name}
             </a>{' '}
             <span className="dim">{formatBytes(line.file.size)} ↓</span>
+          </>
+        ) : parsed.hasGamerTag && parsed.team && parsed.gamerTag ? (
+          <>
+            <span className={`gamer-tag-badge team-${parsed.team.toLowerCase()}`}>
+              {parsed.team === 'BLUE' ? '🔵' : parsed.team === 'RED' ? '🔴' : parsed.team === 'NEON' ? '🟢' : '⚪'} {parsed.gamerTag}
+            </span>{' '}
+            {parsed.cleanText}
           </>
         ) : (
           line.text
@@ -382,6 +400,9 @@ function App() {
   const [session, setSession] = useState<SessionInfo | null>(null);
   // Already applied by main.tsx before the first render; this mirrors it.
   const [theme, setTheme] = useState<Theme>(initialTheme);
+  // Gamer Tag & Squad Identity session (MongoDB synced or Air-Gapped Offline Guest)
+  const [player, setPlayer] = useState<PlayerProfile | null>(getStoredPlayer);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -872,7 +893,8 @@ function App() {
     const m = mode.modem;
     const passphrase = pskRef.current;
     const twoWay = mode.encrypted && twoWayRef.current;
-    const payload = new TextEncoder().encode(text);
+    const fullText = player ? formatGamerMessage(player, text) : text;
+    const payload = new TextEncoder().encode(fullText);
     if (payload.length > mode.maxPayload) {
       addLine({ tag: 'err', mode: m.label, text: `message too long (${payload.length}/${mode.maxPayload} bytes)` });
       return;
@@ -882,10 +904,10 @@ function App() {
       return;
     }
     if (needsMicForHandshake(twoWay)) {
-      addLine({ tag: 'err', mode: m.label, text, note: 'not sent · two-way needs the mic · RETRY MIC', action: 'retry-mic' });
+      addLine({ tag: 'err', mode: m.label, text: fullText, note: 'not sent · two-way needs the mic · RETRY MIC', action: 'retry-mic' });
       return;
     }
-    const lineId = addLine({ tag: 'tx', mode: m.label, text, progress: 0 });
+    const lineId = addLine({ tag: 'tx', mode: m.label, text: fullText, progress: 0 });
     setInputText('');
     let via = '';
 
@@ -906,7 +928,28 @@ function App() {
       case 'sent':
         setLastTx({ mode: m.label, bytes: payload.length, duration: outcome.duration });
         updateLine(lineId, { progress: undefined, note: `sent${via}` });
-        announce(`Sent: ${text}`);
+        announce(`Sent: ${fullText}`);
+        if (player) {
+          if (!player.isOfflineGuest && player.token) {
+            void fetch('/api/auth/stat', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${player.token}`,
+              },
+              body: JSON.stringify({ type: 'message' }),
+            }).catch(() => {});
+          }
+          const updatedPlayer: PlayerProfile = {
+            ...player,
+            stats: {
+              messagesSent: (player.stats?.messagesSent || 0) + 1,
+              filesTransferred: player.stats?.filesTransferred || 0,
+            },
+          };
+          setPlayer(updatedPlayer);
+          storePlayer(updatedPlayer);
+        }
         break;
       case 'cancelled':
         updateLine(lineId, { tag: 'warn', progress: undefined, note: outcome.reason === 'interrupted' ? 'interrupted · audio paused · not sent' : 'cancelled' });
@@ -1315,6 +1358,27 @@ function App() {
         <span className="brand">▚▞ CHIRP</span>
         <span className="dim topbar-sub">acoustic modem</span>
         <span className="spacer" />
+        {/* Gamer / Squad Identity */}
+        {player ? (
+          <div
+            className={`player-badge team-${player.team.toLowerCase()}`}
+            title={`GamerTag: ${player.gamerTag} (${player.team} Squad) · Click to switch / profile`}
+            onClick={() => setAuthModalOpen(true)}
+            style={{ cursor: 'pointer' }}
+          >
+            <span className="player-avatar">{player.avatar}</span>
+            <span className="player-tag">{player.gamerTag}</span>
+            <span className="player-team">[{player.team}]</span>
+          </div>
+        ) : (
+          <button
+            className="btn btn-gamer"
+            title="Authenticate with MongoDB or offline guest"
+            onClick={() => setAuthModalOpen(true)}
+          >
+            [ 🎮 SQUAD ID ]
+          </button>
+        )}
         <span className={`state ${state.className}`}>{state.text}</span>
         {state.actions.map((action, i) => (
           <button
@@ -1595,7 +1659,7 @@ function App() {
                   e.currentTarget.blur();
                 }
               }}
-              placeholder="type a message…"
+              placeholder={player ? `[${player.team}:${player.gamerTag}] type a message…` : 'type a message…'}
             />
           </div>
           {firstUse && (
@@ -1685,6 +1749,17 @@ function App() {
           </a>
         </span>
       </footer>
+
+      <GamerAuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onPlayerLoggedIn={(p) => setPlayer(p)}
+        currentProfile={player}
+        onLogout={() => {
+          clearPlayer();
+          setPlayer(null);
+        }}
+      />
     </div>
   );
 }

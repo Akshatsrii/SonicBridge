@@ -22,9 +22,11 @@
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22.18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Web Audio API](https://img.shields.io/badge/Web_Audio_API-FF6F00?style=for-the-badge&logo=googlechrome&logoColor=white)
 ![Web Crypto](https://img.shields.io/badge/Web_Crypto-AES--256--GCM-2E7D32?style=for-the-badge&logo=letsencrypt&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-22.18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 
 </div>
@@ -75,6 +77,7 @@ Because the channel is just air, it works where nothing else does: isolated mach
 | 🔐 **Encryption** | AES-256-GCM per frame, PBKDF2-SHA256 (600,000 iterations) from a pre-shared passphrase |
 | 🔁 **Forward secrecy (optional)** | TWO-WAY mode adds an ephemeral X25519 key exchange mixed with the pre-shared key |
 | 📁 **Resumable files** | Manifest + numbered chunks; **RESEND** fills in only the missing chunks |
+| 🎮 **Gamer & Squad Identity** | Authenticate via **MongoDB** or **100% Offline Guest** mode; pick squad (🔵 Blue, 🔴 Red, 🟢 Neon, ⚪ Solo) and avatar; transmit identity headers over sound waves |
 | 🛑 **Cancel anytime** | `ESC` cancels a transmission |
 | 🧪 **Loopback TEST** | Checks whether a device can hear its own signal in the selected mode |
 | 🖥️ **Terminal-style UI** | Live 0–20 kHz spectrum with peak hold, scrolling waterfall, transfer log with progress bars, per-mode link statistics, keyboard shortcuts |
@@ -100,6 +103,8 @@ Because the channel is just air, it works where nothing else does: isolated mach
 | **AudioWorklet** | <img src="https://img.shields.io/badge/-AudioWorklet-FF6F00?logo=googlechrome&logoColor=white" height="24"/> | Streams **raw microphone samples** to the demodulators; the sample count is the receiver's clock |
 | **Web Crypto API** | <img src="https://img.shields.io/badge/-Web_Crypto-2E7D32?logo=letsencrypt&logoColor=white" height="24"/> | AES-256-GCM, PBKDF2-SHA256, HMAC-SHA256, HKDF-SHA256, X25519 (requires https or localhost) |
 | **Node.js 22.18+** | <img src="https://skillicons.dev/icons?i=nodejs" width="32"/> | Runs the tests directly on TypeScript sources, plus build tooling |
+| **Express.js** | <img src="https://skillicons.dev/icons?i=express" width="32"/> | Backend REST API (`server/server.js`) for gamer authentication, stats logging, and JWT sessions |
+| **MongoDB & Mongoose** | <img src="https://skillicons.dev/icons?i=mongodb" width="32"/> | Gamer profile database (`server/models/User.js`) with resilient in-memory fallback for air-gapped LAN events |
 | **npm / Yarn** | <img src="https://skillicons.dev/icons?i=npm,yarn" width="64"/> | Dependency management and scripts (`dev`, `test`, `bench`, `lint`) |
 | **Git & GitHub** | <img src="https://skillicons.dev/icons?i=git,github" width="64"/> | Version control and collaboration |
 | **GitHub Actions** | <img src="https://skillicons.dev/icons?i=githubactions" width="32"/> | Deploy workflow: lint → tests → build |

@@ -856,3 +856,322 @@ details > summary:focus-visible {
 .two-way-notes li::before {
   content: '- ';
 }
+
+/* ── GAMER IDENTITY & CLAN AUTH MODAL ───────────────── */
+
+.btn-gamer {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(255, 96, 34, 0.08);
+  font-weight: bold;
+  padding: 0 1ch;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+}
+
+.btn-gamer:hover {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 10px rgba(255, 96, 34, 0.4);
+}
+
+.player-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6ch;
+  padding: 2px 8px;
+  background: var(--sel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: border-color 0.15s;
+}
+
+.player-badge:hover {
+  border-color: var(--rx);
+}
+
+.player-avatar {
+  font-size: 14px;
+}
+
+.player-team {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+}
+
+.team-blue {
+  background: rgba(0, 210, 255, 0.15);
+  color: #00d2ff;
+  border: 1px solid #00d2ff;
+}
+
+.team-red {
+  background: rgba(255, 51, 102, 0.15);
+  color: #ff3366;
+  border: 1px solid #ff3366;
+}
+
+.team-neon {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid #00ff88;
+}
+
+.team-solo {
+  background: rgba(255, 170, 0, 0.15);
+  color: #ffaa00;
+  border: 1px solid #ffaa00;
+}
+
+.player-tag {
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.player-logout {
+  background: none;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  padding: 0 2px;
+  margin-left: 4px;
+  font-size: 11px;
+}
+
+.player-logout:hover {
+  color: var(--err);
+}
+
+.gamer-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Modal Overlay & Card */
+.gamer-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.gamer-modal-card {
+  background: #080d12;
+  border: 1px solid var(--rx);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.2);
+  overflow: hidden;
+  animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.gamer-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #0d1620;
+  border-bottom: 1px solid var(--line);
+}
+
+.gamer-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gamer-icon {
+  font-size: 18px;
+}
+
+.gamer-title {
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--rx);
+}
+
+.gamer-close-btn {
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-size: 16px;
+  cursor: pointer;
+}
+.gamer-close-btn:hover {
+  color: var(--fg);
+}
+
+.gamer-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  background: #06090d;
+}
+
+.gamer-tab {
+  flex: 1;
+  padding: 10px 4px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--dim);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.gamer-tab:hover {
+  color: var(--fg);
+}
+
+.gamer-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: rgba(255, 96, 34, 0.05);
+}
+
+.gamer-form {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gamer-error-banner {
+  background: rgba(255, 51, 102, 0.15);
+  border: 1px solid var(--err);
+  color: var(--err);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.gamer-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gamer-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--dim);
+}
+
+.gamer-input {
+  background: #040609;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.gamer-input:focus {
+  border-color: var(--rx);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+.team-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.team-pill {
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.avatar-picker-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.avatar-btn {
+  background: #06090d;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.avatar-btn:hover,
+.avatar-btn.active {
+  border-color: var(--accent);
+  background: rgba(255, 96, 34, 0.15);
+}
+
+.gamer-submit-wrap {
+  margin-top: 6px;
+}
+
+.gamer-submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 0 10px rgba(255, 96, 34, 0.35);
+}
+
+.gamer-submit-btn:hover:not(:disabled) {
+  background: #ff7844;
+  box-shadow: 0 0 16px rgba(255, 96, 34, 0.5);
+}
+
+.gamer-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gamer-modal-footer {
+  padding: 8px 16px;
+  background: #06090d;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--dim);
+  text-align: center;
+}
