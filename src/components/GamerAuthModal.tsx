@@ -75,8 +75,8 @@ export const GamerAuthModal: React.FC<GamerAuthModalProps> = ({
           setErrorMsg(res.error || 'Registration failed');
         }
       }
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Something went wrong');
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setLoading(false);
     }

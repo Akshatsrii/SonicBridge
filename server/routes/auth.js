@@ -74,7 +74,8 @@ router.post('/register', async (req, res) => {
     memory.set(cleanTag, memoryUser);
 
     const token = generateToken(memoryUser);
-    const { password: _, ...clientUser } = memoryUser;
+    const clientUser = { ...memoryUser };
+    delete clientUser.password;
 
     return res.status(201).json({
       message: 'Player registered successfully! (Offline Zone Cache)',
@@ -134,7 +135,8 @@ router.post('/login', async (req, res) => {
     }
 
     const token = generateToken(memoryUser);
-    const { password: _, ...clientUser } = memoryUser;
+    const clientUser = { ...memoryUser };
+    delete clientUser.password;
 
     return res.json({
       message: 'Login successful! (Offline Zone Cache)',
@@ -167,7 +169,8 @@ router.get('/me', async (req, res) => {
     const memory = getMemoryStore();
     const memUser = memory.get(decoded.gamerTag);
     if (memUser) {
-      const { password: _, ...clientUser } = memUser;
+      const clientUser = { ...memUser };
+      delete clientUser.password;
       return res.json({ player: clientUser });
     }
 
@@ -181,7 +184,7 @@ router.get('/me', async (req, res) => {
         stats: { messagesSent: 0, filesTransferred: 0 },
       },
     });
-  } catch (err) {
+  } catch {
     res.status(401).json({ error: 'Invalid or expired session token' });
   }
 });

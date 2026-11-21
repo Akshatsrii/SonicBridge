@@ -63,7 +63,7 @@ export async function loginPlayer(gamerTag: string, password: string): Promise<{
     };
     storePlayer(player);
     return { ok: true, player };
-  } catch (err: any) {
+  } catch {
     // If backend is unreachable (100% offline air-gapped game club), allow local login
     return { ok: false, error: 'Server unreachable. You can use OFFLINE GUEST MODE without internet!' };
   }
@@ -94,7 +94,7 @@ export async function registerPlayer(
     };
     storePlayer(player);
     return { ok: true, player };
-  } catch (err: any) {
+  } catch {
     return { ok: false, error: 'Server unreachable. You can use OFFLINE GUEST MODE without internet!' };
   }
 }
@@ -136,7 +136,7 @@ export function parseGamerMessage(text: string): ParsedGamerMessage {
   if (match) {
     return {
       hasGamerTag: true,
-      team: match[1] as any,
+      team: match[1] as 'BLUE' | 'RED' | 'NEON' | 'SOLO',
       gamerTag: match[2],
       cleanText: match[3],
     };
