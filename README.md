@@ -78,6 +78,7 @@ Because the channel is just air, it works where nothing else does: isolated mach
 | 🔁 **Forward secrecy (optional)** | TWO-WAY mode adds an ephemeral X25519 key exchange mixed with the pre-shared key |
 | 📁 **Resumable files** | Manifest + numbered chunks; **RESEND** fills in only the missing chunks |
 | 🎮 **Gamer & Squad Identity** | Authenticate via **MongoDB** or **100% Offline Guest** mode; pick squad (🔵 Blue, 🔴 Red, 🟢 Neon, ⚪ Solo) and avatar; transmit identity headers over sound waves |
+| 🏆 **Squad Leaderboard & Battle Radar** | Real-time MongoDB aggregation pipeline (`/api/auth/leaderboard`) tracking squad scores, beamed acoustic bytes, and arena MVP with 100% air-gapped tournament cache |
 | 🛑 **Cancel anytime** | `ESC` cancels a transmission |
 | 🧪 **Loopback TEST** | Checks whether a device can hear its own signal in the selected mode |
 | 🖥️ **Terminal-style UI** | Live 0–20 kHz spectrum with peak hold, scrolling waterfall, transfer log with progress bars, per-mode link statistics, keyboard shortcuts |

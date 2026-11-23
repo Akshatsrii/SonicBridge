@@ -39,6 +39,7 @@ import {
   parseGamerMessage,
 } from './auth/playerSession';
 import GamerAuthModal from './components/GamerAuthModal';
+import LeaderboardModal from './components/LeaderboardModal';
 
 // Audio signal favicon SVG data - base64 encoded for direct use
 const AUDIO_FAVICON = `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiMxMzEzMTMiLz4KICA8IS0tIFRocmVlIHNpZ25hbCBiYXJzIHdpdGggc29saWQgY29sb3JzIC0tPgogIDxyZWN0IHg9IjEyIiB5PSI0MiIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiByeD0iMiIgZmlsbD0iI2ZmNDFiNCIvPiA8IS0tIFBpbmsgLS0+CiAgPHJlY3QgeD0iMjciIHk9IjMwIiB3aWR0aD0iMTAiIGhlaWdodD0iMjIiIHJ4PSIyIiBmaWxsPSIjMDBmZmFhIi8+IDwhLS0gR3JlZW4gLS0+CiAgPHJlY3QgeD0iNDIiIHk9IjE4IiB3aWR0aD0iMTAiIGhlaWdodD0iMzQiIHJ4PSIyIiBmaWxsPSIjMzE4NWZmIi8+IDwhLS0gQmx1ZSAtLT4KPC9zdmc+`;
@@ -403,6 +404,7 @@ function App() {
   // Gamer Tag & Squad Identity session (MongoDB synced or Air-Gapped Offline Guest)
   const [player, setPlayer] = useState<PlayerProfile | null>(getStoredPlayer);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [leaderboardOpen, setLeaderboardOpen] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -937,7 +939,7 @@ function App() {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${player.token}`,
               },
-              body: JSON.stringify({ type: 'message' }),
+              body: JSON.stringify({ gamerTag: player.gamerTag, type: 'message', bytes: payload.length }),
             }).catch(() => {});
           }
           const updatedPlayer: PlayerProfile = {
@@ -945,6 +947,7 @@ function App() {
             stats: {
               messagesSent: (player.stats?.messagesSent || 0) + 1,
               filesTransferred: player.stats?.filesTransferred || 0,
+              bytesTransmitted: (player.stats?.bytesTransmitted || 0) + payload.length,
             },
           };
           setPlayer(updatedPlayer);
@@ -1379,6 +1382,14 @@ function App() {
             [ 🎮 SQUAD ID ]
           </button>
         )}
+        {/* Squad Battle Radar & Leaderboard */}
+        <button
+          className="btn btn-leaderboard"
+          title="Open Squad Battle Radar & Leaderboard"
+          onClick={() => setLeaderboardOpen(true)}
+        >
+          [ 🏆 LEADERBOARD ]
+        </button>
         <span className={`state ${state.className}`}>{state.text}</span>
         {state.actions.map((action, i) => (
           <button
@@ -1759,6 +1770,11 @@ function App() {
           clearPlayer();
           setPlayer(null);
         }}
+      />
+
+      <LeaderboardModal
+        isOpen={leaderboardOpen}
+        onClose={() => setLeaderboardOpen(false)}
       />
     </div>
   );
