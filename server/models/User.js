@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     stats: {
       messagesSent: { type: Number, default: 0 },
       filesTransferred: { type: Number, default: 0 },
+      bytesTransmitted: { type: Number, default: 0 },
     },
   },
   {
